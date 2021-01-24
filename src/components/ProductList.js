@@ -6,14 +6,22 @@ import SearchBar from "./SearchBar";
 // Data
 import products from "../products";
 
+import React, { useState } from "react";
+
 const ProductList = () => {
-  const productList = products.map((product) => (
+  const [query, setQuery] = useState("");
+
+  const searchProductList = products.filter((product) =>
+    product.name.toLowerCase().includes(query.toLowerCase())
+  );
+
+  const productList = searchProductList.map((product) => (
     <ProductItem product={product} key={product.id} />
   ));
 
   return (
     <>
-      <SearchBar />
+      <SearchBar setQuery={setQuery} />
       <ListWrapper>{productList}</ListWrapper>
     </>
   );
